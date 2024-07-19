@@ -1,0 +1,7 @@
+flask
+openai
+streamlit
+pandas
+requests
+json
+os
