@@ -30,9 +30,7 @@ language = st.sidebar.selectbox(
     ["C#", "Python", "Java", "JavaScript"],
     key="language_selection",
 )
-data_models = os.listdir(
-    "/home/lbeylouni/Documents/newGen/newdocs"
-)  # Adjust path as needed
+data_models = os.listdir("./newdocs")  # Adjust path as needed
 data_model = st.sidebar.selectbox(
     "Choose Data Model", data_models, key="data_model_selection"
 )
