@@ -10,7 +10,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 def load_template(filename):
     """Load the data model template from a file that is used by our backend squad"""
     try:
-        with open(f"/home/lbeylouni/Documents/newGen/newdocs/{filename}", "r") as file:
+        with open(f"./newdocs/{filename}", "r") as file:
             content = file.read()
             print(f"Loaded template content from {filename}: {content}...")
             return content
