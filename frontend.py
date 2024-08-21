@@ -47,7 +47,7 @@ def read_template(file_path):
         return str(e)
 
 
-template_path = f"/home/lbeylouni/Documents/newGen/newdocs/{data_model}"
+template_path = f"./newdocs/{data_model}"
 template_content = read_template(template_path)
 
 # Display template content in the main panel
