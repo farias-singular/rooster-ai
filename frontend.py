@@ -21,7 +21,8 @@ def add_row(df):
 
 # Sidebar for input specifications and selections
 st.sidebar.title("Input Specifications")
-entity = st.sidebar.selectbox("Entity", ["Brands", "Products", "Users"], index=0)
+# entity = st.sidebar.selectbox("Entity", ["Brands", "Products", "Users"], index=0)
+entity = st.sidebar.text_input("Type Entity", "Entity")
 
 # Move programming language and data model to sidebar
 language = st.sidebar.selectbox(
@@ -35,6 +36,25 @@ data_models = os.listdir(
 data_model = st.sidebar.selectbox(
     "Choose Data Model", data_models, key="data_model_selection"
 )
+
+
+# Read and display the selected data model content
+def read_template(file_path):
+    try:
+        with open(file_path, "r") as file:
+            return file.read()
+    except FileNotFoundError:
+        return "File not found."
+    except Exception as e:
+        return str(e)
+
+
+template_path = f"/home/lbeylouni/Documents/newGen/newdocs/{data_model}"
+template_content = read_template(template_path)
+
+# Display template content in the main panel
+st.title("Template Content")
+st.text_area("Template Content", template_content, height=300)
 
 # Editable tables for Properties and Relations
 st.sidebar.subheader("Properties")
@@ -88,3 +108,4 @@ if st.button("Generate JSON"):
         st.json(response.json())  # Display the response from the backend
     else:
         st.error("Failed to send JSON")
+        st.json(response.json())  # Display the error response from the backend
