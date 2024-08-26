@@ -86,6 +86,21 @@ def validate_code_with_openai(code):
     return response.choices[0].message.content
 
 
+# Initialize if not already in session state
+if "properties_data" not in st.session_state:
+    st.session_state["properties_data"] = pd.DataFrame(columns=["Property", "Type"])
+if "relations_data" not in st.session_state:
+    st.session_state["relations_data"] = pd.DataFrame(
+        columns=["Entity1", "Relation", "Entity2"]
+    )
+
+
+# Function to add a row to a dataframe
+def add_row(df):
+    new_row = pd.DataFrame({col: [""] for col in df.columns}, index=[len(df)])
+    return pd.concat([df, new_row], ignore_index=True)
+
+
 st.sidebar.title("Input Specifications")
 entity = st.sidebar.text_input("Type Entity", "Entity")
 
@@ -126,9 +141,7 @@ for i in range(len(st.session_state["properties_data"])):
         )
 
 if st.sidebar.button("Add Property"):
-    st.session_state["properties_data"] = st.session_state["properties_data"].append(
-        {"Property": "", "Type": ""}, ignore_index=True
-    )
+    st.session_state["properties_data"] = add_row(st.session_state["properties_data"])
 
 st.sidebar.subheader("Relations")
 for i in range(len(st.session_state["relations_data"])):
@@ -143,9 +156,7 @@ for i in range(len(st.session_state["relations_data"])):
         )
 
 if st.sidebar.button("Add Relation"):
-    st.session_state["relations_data"] = st.session_state["relations_data"].append(
-        {"Entity1": "", "Relation": "", "Entity2": ""}, ignore_index=True
-    )
+    st.session_state["relations_data"] = st.session_state["relations_data"]
 
 st.title("Language Model Output")
 if st.button("Generate Code"):
