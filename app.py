@@ -156,7 +156,7 @@ for i in range(len(st.session_state["relations_data"])):
         )
 
 if st.sidebar.button("Add Relation"):
-    st.session_state["relations_data"] = st.session_state["relations_data"]
+    st.session_state["relations_data"] = add_row(st.session_state["relations_data"])
 
 st.title("Language Model Output")
 if st.button("Generate Code"):
